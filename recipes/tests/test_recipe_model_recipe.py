@@ -1,6 +1,6 @@
 from .test_recipe_base import RecipeTestBase, Recipe
 from django.core.exceptions import ValidationError
-from parameterized import parameterized
+from parameterized import parameterized  # type: ignore
 
 
 class RecipeModelTest(RecipeTestBase):
@@ -16,7 +16,7 @@ class RecipeModelTest(RecipeTestBase):
             description='Recipe Description',
             slug='recipe-slug',
             preparation_time=10,
-            preparation_time_unit='Minutos',
+            preparation_time_unirrt='Minutos',
             servings=5,
             servings_unit='Porções',
             preparation_steps='Recipe Preparation Steps',
@@ -49,4 +49,16 @@ class RecipeModelTest(RecipeTestBase):
         self.assertFalse(
             recipe.is_published,
             msg='Recipe is_published is not false'
+            )
+
+    def test_recipe_string_representation(self):
+        needed = 'Testing Representation'
+        self.recipe.title = needed
+        self.recipe.full_clean()
+        self.recipe.save()
+        self.assertEqual(
+            str(self.recipe),
+            needed,
+            msg='Recipe string representation must be '
+                f'"{needed}", but "{str(self.recipe)}" was received'
             )
