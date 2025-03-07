@@ -143,3 +143,12 @@ class RecipeViewsTest(RecipeTestBase):
         url = reverse('recipes:search')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
+
+    def test_blabla(self):
+        ...
+
+    def test_blabla2(self):
+        ...
+
+    def test_blabla3(self):
+        ...
